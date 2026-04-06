@@ -324,6 +324,23 @@ function initMap() {
 function initInteractions() {
     const navItems = document.querySelectorAll('.nav-links li');
     const tabContents = document.querySelectorAll('.tab-content');
+    const sidebar = document.querySelector('.sidebar');
+    const menuToggle = document.getElementById('menu-toggle');
+
+    // Mobile Menu Toggle
+    if (menuToggle) {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('active');
+        });
+    }
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && sidebar.classList.contains('active') && !sidebar.contains(e.target)) {
+            sidebar.classList.remove('active');
+        }
+    });
 
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
@@ -336,6 +353,11 @@ function initInteractions() {
                 tabContents.forEach(tab => tab.classList.remove('active'));
                 const targetSection = document.getElementById(targetId);
                 if(targetSection) targetSection.classList.add('active');
+            }
+
+            // Close sidebar on mobile after selection
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('active');
             }
         });
     });
