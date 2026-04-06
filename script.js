@@ -1,21 +1,19 @@
-// --- Premium Dark Theme Chart Configs ---
-Chart.defaults.color = '#94A3B8';
+// --- Sophisticated Light Theme Chart Configs ---
+Chart.defaults.color = '#64748B'; // Slate text
 Chart.defaults.font.family = "'Outfit', sans-serif";
-Chart.defaults.scale.grid.color = 'rgba(255, 255, 255, 0.05)';
-Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(15, 23, 30, 0.9)';
-Chart.defaults.plugins.tooltip.titleColor = '#FFFFFF';
-Chart.defaults.plugins.tooltip.bodyColor = '#00E676';
-Chart.defaults.plugins.tooltip.borderColor = 'rgba(255, 255, 255, 0.1)';
+Chart.defaults.scale.grid.color = 'rgba(0, 0, 0, 0.05)'; // Light grid
+Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+Chart.defaults.plugins.tooltip.titleColor = '#1E293B';
+Chart.defaults.plugins.tooltip.bodyColor = '#10B981';
+Chart.defaults.plugins.tooltip.borderColor = 'rgba(0, 0, 0, 0.05)';
 Chart.defaults.plugins.tooltip.borderWidth = 1;
 Chart.defaults.plugins.tooltip.padding = 12;
 
 const COLORS = {
-    neonGreen: '#00E676',
-    emerald: '#059669',
-    oceanBlue: '#0284C7',
-    electricBlue: '#00D4FF',
-    neonYellow: '#FFD600',
-    dangerRed: '#FF3D00'
+    brandEmerald: '#10B981',
+    brandSky: '#0EA5E9',
+    brandAmber: '#F59E0B',
+    brandRed: '#EF4444'
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -82,10 +80,10 @@ function initCharts() {
                 label: 'Global Industrial Centers',
                 data: bubbleData,
                 backgroundColor: 'rgba(2, 132, 199, 0.5)',
-                borderColor: COLORS.electricBlue,
+                borderColor: COLORS.brandSky,
                 borderWidth: 1,
                 hoverBackgroundColor: 'rgba(0, 230, 118, 0.8)',
-                hoverBorderColor: COLORS.neonGreen
+                hoverBorderColor: COLORS.brandEmerald
             }]
         },
         options: {
@@ -109,7 +107,7 @@ function initCharts() {
                     type: 'line',
                     label: 'Predicted Optimal Recycling Limit (Tons)',
                     data: [50, 55, 60, 68, 75, 82, 90, 100],
-                    borderColor: COLORS.neonGreen,
+                    borderColor: COLORS.brandEmerald,
                     borderWidth: 3,
                     tension: 0.4,
                     borderDash: [5, 5],
@@ -120,7 +118,7 @@ function initCharts() {
                     label: 'Actual E-Waste Generated',
                     data: [80, 85, 95, 105, 110, null, null, null],
                     backgroundColor: 'rgba(255, 61, 0, 0.4)',
-                    borderColor: COLORS.dangerRed,
+                    borderColor: COLORS.brandRed,
                     borderWidth: 1
                 }
             ]
@@ -152,8 +150,8 @@ function initCharts() {
                 label: 'Model Confidence Levels',
                 data: [92, 88, 95, 78, 65, 85],
                 backgroundColor: 'rgba(0, 212, 255, 0.2)',
-                borderColor: COLORS.electricBlue,
-                pointBackgroundColor: COLORS.neonGreen,
+                borderColor: COLORS.brandSky,
+                pointBackgroundColor: COLORS.brandEmerald,
                 borderWidth: 2
             }]
         },
@@ -173,7 +171,7 @@ function initCharts() {
                 label: 'Global CO2 Emissions (Mt)',
                 data: [32000, 32500, 33000, 33200, 33800, 34200, 32500, 34800, 35500, 36000],
                 backgroundColor: 'rgba(255, 61, 0, 0.2)',
-                borderColor: COLORS.dangerRed,
+                borderColor: COLORS.brandRed,
                 borderWidth: 2,
                 fill: true,
                 tension: 0.4
@@ -220,7 +218,7 @@ function initCharts() {
             datasets: [{
                 label: 'Grid Transmission Losses (%)',
                 data: [12.4, 12.1, 11.8, 11.9, 11.5, 11.2, 10.9, 11.1, 10.8, 10.5, 10.2, 9.8],
-                borderColor: COLORS.neonYellow,
+                borderColor: COLORS.brandAmber,
                 borderWidth: 3,
                 tension: 0.2
             }]
@@ -252,7 +250,7 @@ function initCharts() {
                     label: 'Pollution Exposure Index',
                     data: [30, 25, 85, 75, 60],
                     backgroundColor: gradExposure,
-                    borderColor: COLORS.dangerRed,
+                    borderColor: COLORS.brandRed,
                     borderWidth: 1,
                     borderRadius: 4
                 },
@@ -260,7 +258,7 @@ function initCharts() {
                     label: 'Clean Resource Access Index',
                     data: [90, 95, 45, 30, 50],
                     backgroundColor: gradAccess,
-                    borderColor: COLORS.neonGreen,
+                    borderColor: COLORS.brandEmerald,
                     borderWidth: 1,
                     borderRadius: 4
                 }
@@ -280,15 +278,15 @@ function initMap() {
     };
 
     const globalMap = L.map('globalMapObj', mapOptions).setView([20, 0], 2);
-    // Using Dark theme map perfectly fitting the premium aesthetic
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    // Switch to Light tile layer for "lite" theme
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         subdomains: 'abcd', maxZoom: 20
     }).addTo(globalMap);
 
     const emissionZones = [
-        { name: "Amazon Basin", coords: [-3, -60], size: 4000, color: COLORS.dangerRed, msg: "High Deforestation Alert" },
-        { name: "Nordic Grid", coords: [60, 10], size: 2000, color: COLORS.neonGreen, msg: "100% Renewable Transition" },
-        { name: "East Asian Hub", coords: [35, 110], size: 5000, color: COLORS.neonYellow, msg: "High Emission, Transitioning" }
+        { name: "Amazon Basin", coords: [-3, -60], size: 4000, color: COLORS.brandRed, msg: "High Deforestation Alert" },
+        { name: "Nordic Grid", coords: [60, 10], size: 2000, color: COLORS.brandEmerald, msg: "100% Renewable Transition" },
+        { name: "East Asian Hub", coords: [35, 110], size: 5000, color: COLORS.brandAmber, msg: "High Emission, Transitioning" }
     ];
 
     const mapCircles = [];
@@ -307,14 +305,14 @@ function initMap() {
     }, 1500);
 
     const localMap = L.map('localMapObj', mapOptions).setView([40.7128, -74.0060], 11);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         subdomains: 'abcd', maxZoom: 20
     }).addTo(localMap);
     
     const microGrids = [
-        { coords: [40.7128, -74.0060], size: 3000, color: COLORS.electricBlue, label: 'Downtown Active Grid Central' },
-        { coords: [40.7831, -73.9712], size: 1500, color: COLORS.neonGreen, label: 'UWS Solar Coalition' },
-        { coords: [40.6782, -73.9442], size: 2200, color: COLORS.neonYellow, label: 'Brooklyn Solar Node' }
+        { coords: [40.7128, -74.0060], size: 3000, color: COLORS.brandSky, label: 'Downtown Active Grid Central' },
+        { coords: [40.7831, -73.9712], size: 1500, color: COLORS.brandEmerald, label: 'UWS Solar Coalition' },
+        { coords: [40.6782, -73.9442], size: 2200, color: COLORS.brandAmber, label: 'Brooklyn Solar Node' }
     ];
 
     microGrids.forEach(grid => {
