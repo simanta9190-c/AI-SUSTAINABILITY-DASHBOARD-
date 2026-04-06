@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="assets/ecovision_logo.png" alt="EcoVision Logo" width="150" />
+</div>
+
 # EcoVision Analytics | Sustainability Dashboard
 
 ![EcoVision Banner](https://img.shields.io/badge/Project-Sustainability_Analytics-00E676?style=for-the-badge)
@@ -6,6 +10,20 @@
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
 A premium, AI-driven sustainability analytics dashboard designed to analyze and address critical global environmental challenges. Built with a sleek glassmorphism UI, this application visualizes complex data relating to resource depletion, global climate impact, and provides actionable optimization insights.
+
+## 🗂 Project Structure
+```text
+📦 AI-SUSTAINABILITY-DASHBOARD-
+ ┣ 📂 assets
+ ┃ ┗ 📜 ecovision_logo.png
+ ┣ 📂 data
+ ┃ ┣ 📜 global_emissions_data.csv
+ ┃ ┗ 📜 microgrid_capacity.json
+ ┣ 📜 index.html
+ ┣ 📜 script.js
+ ┣ 📜 style.css
+ ┗ 📜 README.md
+```
 
 ## 🌍 Problem Domain Addressed
 
@@ -26,7 +44,7 @@ Despite growing awareness, societies continue to face critical sustainability is
 
 ## 🚀 How to Run Locally
 
-This dashboard uses Vanilla JS, HTML, and CSS (with `Chart.js` and `Leaflet.js` via CDN) and requires absolutely no build steps. 
+This dashboard uses Vanilla JS, HTML, and CSS and requires absolutely no build steps. 
 
 1. Clone the repository:
 ```bash

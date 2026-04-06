@@ -1,0 +1,25 @@
+{
+  "microgrids": [
+    {
+      "id": "NYC-MN-01",
+      "label": "Downtown Active Grid Central",
+      "coordinates": [40.7128, -74.0060],
+      "current_capacity_mw": 120,
+      "status": "In Progress"
+    },
+    {
+      "id": "NYC-UWS-02",
+      "label": "UWS Solar Coalition",
+      "coordinates": [40.7831, -73.9712],
+      "current_capacity_mw": 85,
+      "status": "Active"
+    },
+    {
+      "id": "NYC-BK-03",
+      "label": "Brooklyn Solar Node",
+      "coordinates": [40.6782, -73.9442],
+      "current_capacity_mw": 210,
+      "status": "Pending Approval"
+    }
+  ]
+}
