@@ -4,6 +4,8 @@
 
 # EcoVision Analytics | Sustainability Dashboard
 
+🟢 **LIVE DASHBOARD:** [View the Dashboard Online](https://simanta9190-c.github.io/AI-SUSTAINABILITY-DASHBOARD-/)
+
 ![EcoVision Banner](https://img.shields.io/badge/Project-Sustainability_Analytics-00E676?style=for-the-badge)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
