@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoVision Analytics | Sustainability Dashboard</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="app-background"></div>
+    <div class="app-container">
+        <nav class="sidebar glass-panel">
+            <div class="brand">
+                <i class="fas fa-leaf brand-icon"></i>
+                <h2>EcoVision</h2>
+            </div>
+            <div class="brand-subtitle">Sustainability Intelligence</div>
+            
+            <ul class="nav-links mt-4">
+                <li class="active" data-target="tab-summary"><a href="#"><i class="fas fa-earth-americas"></i> Global Impact Summary</a></li>
+                <li data-target="tab-eda"><a href="#"><i class="fas fa-chart-pie"></i> EDA Insights</a></li>
+                <li data-target="tab-ml"><a href="#"><i class="fas fa-brain"></i> ML Predictions</a></li>
+                <li data-target="tab-maps"><a href="#"><i class="fas fa-map-location-dot"></i> Regional Diagnostics</a></li>
+                <li data-target="tab-opt"><a href="#"><i class="fas fa-bullseye"></i> Resource Optimization</a></li>
+            </ul>
+            <div class="mt-auto environmental-score">
+                <div class="score-label">AI Optimization Score</div>
+                <div class="score-value">94.2%</div>
+                <div class="score-bar"><div class="score-fill"></div></div>
+            </div>
+        </nav>
+
+        <main class="content">
+            <header class="topbar">
+                <h1>Sustainability Resource & Climate Hub</h1>
+                <p class="subtitle">AI-driven analysis of resource depletion, environmental impact, and energy inefficiency</p>
+            </header>
+
+            <!-- TAB 1: EXECUTIVE SUMMARY -->
+            <section id="tab-summary" class="tab-content active">
+                <section class="live-tracker glass-panel mb-4">
+                    <div class="live-header">
+                        <span class="live-dot"></span> LIVE: Global Carbon Offset Rate
+                    </div>
+                    <div class="live-counter">
+                        <span id="tracker-val">Loading...</span> <span class="unit">Tons / hr</span>
+                    </div>
+                    <div class="live-sub">Data synthesized via global IoT sensor networks.</div>
+                </section>
+
+                <section class="kpi-grid">
+                    <div class="kpi-card glass-panel">
+                        <div class="kpi-icon-wrapper resource"><i class="fas fa-droplet"></i></div>
+                        <div class="kpi-details">
+                            <div class="kpi-title">Clean Water Saved</div>
+                            <div class="kpi-value"><span id="val-water">--</span> ML</div>
+                            <div class="kpi-trend good">+14% vs Last Year</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card glass-panel">
+                        <div class="kpi-icon-wrapper energy"><i class="fas fa-bolt"></i></div>
+                        <div class="kpi-details">
+                            <div class="kpi-title">Renewable Energy Coverage</div>
+                            <div class="kpi-value"><span id="val-renew">--</span> %</div>
+                            <div class="kpi-trend good">+5.2% Transition Rate</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card glass-panel kpi-accent">
+                        <div class="kpi-icon-wrapper waste"><i class="fas fa-recycle"></i></div>
+                        <div class="kpi-details">
+                            <div class="kpi-title">E-Waste Recycled (Predicted)</div>
+                            <div class="kpi-value"><span id="val-waste">--</span> Tons</div>
+                            <div class="kpi-trend bad">-2.1% Below Target</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card glass-panel">
+                        <div class="kpi-icon-wrapper danger" style="background: rgba(255, 61, 0, 0.2); color: var(--danger-red);"><i class="fas fa-smog"></i></div>
+                        <div class="kpi-details">
+                            <div class="kpi-title">Carbon Footprint</div>
+                            <div class="kpi-value">36K Mt</div>
+                            <div class="kpi-trend bad">+1.4% Annual Increase</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card glass-panel">
+                        <div class="kpi-icon-wrapper equity" style="background: rgba(255, 214, 0, 0.2); color: var(--neon-yellow);"><i class="fas fa-users-rays"></i></div>
+                        <div class="kpi-details">
+                            <div class="kpi-title">Social Risk Balance</div>
+                            <div class="kpi-value">Critical</div>
+                            <div class="kpi-trend bad">High Disparity Detected</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="charts-wrapper mb-4 mt-4">
+                    <div class="chart-card glass-panel span-full">
+                        <div class="card-header">
+                            <h3>Global Climate Impact: Carbon Emissions (Mt)</h3>
+                            <p class="card-desc">Decadal trend of industrial emissions driving global warming.</p>
+                        </div>
+                        <div class="chart-container" style="height: 350px;">
+                             <canvas id="carbonAreaChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- TAB 2: EDA INSIGHTS -->
+            <section id="tab-eda" class="tab-content">
+                <section class="charts-wrapper mb-4">
+                    <div class="chart-card glass-panel">
+                        <div class="card-header">
+                            <h3>Renewable vs Non-Renewable (Polar Area)</h3>
+                            <p class="card-desc">Energy source distribution across global industrial sectors.</p>
+                        </div>
+                        <div class="chart-container" style="height: 300px;">
+                             <canvas id="energyPolarChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card glass-panel">
+                        <div class="card-header">
+                            <h3>Resource Depletion Density (Bubble)</h3>
+                            <p class="card-desc">Forest Loss (X) vs Water Usage (Y). Size represents Carbon Output.</p>
+                        </div>
+                        <div class="chart-container" style="height: 300px;">
+                             <canvas id="depletionBubbleChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="charts-wrapper mb-4">
+                    <div class="chart-card glass-panel">
+                        <div class="card-header">
+                            <h3>Waste Generation by Material (Doughnut)</h3>
+                            <p class="card-desc">Categorical breakdown of non-recycled landfill mass.</p>
+                        </div>
+                        <div class="chart-container" style="height: 300px;">
+                             <canvas id="wasteDoughnutChart"></canvas>
+                        </div>
+                        <div class="insight-panel mt-3">
+                            <i class="fas fa-lightbulb highlight-icon"></i>
+                            <div class="insight-text">
+                                <strong>AI Insight:</strong> Plastic and E-Waste comprise 65% of landfill mass. A lack of standardized sorting infrastructure is the primary bottleneck.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-card glass-panel">
+                        <div class="card-header">
+                            <h3>Energy Inefficiency Trajectory (Line)</h3>
+                            <p class="card-desc">Tracking grid transmission losses over a 12-month period.</p>
+                        </div>
+                        <div class="chart-container" style="height: 300px;">
+                             <canvas id="inefficiencyLineChart"></canvas>
+                        </div>
+                        <div class="insight-panel mt-3">
+                            <i class="fas fa-lightbulb highlight-icon"></i>
+                            <div class="insight-text">
+                                <strong>AI Insight:</strong> Grid losses have decreased from 12.4% to 9.8%, correlating directly with recent micro-grid installations in urban centers.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- TAB 3: ML PREDICTIONS -->
+            <section id="tab-ml" class="tab-content">
+                <section class="charts-wrapper mb-4">
+                    <div class="chart-card glass-panel span-full">
+                        <div class="card-header">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3>AI Waste Classification & Trend Forecasting</h3>
+                                <div class="info-badge highlight">Active Prophet Model</div>
+                            </div>
+                            <p class="card-desc">Predictive model comparing historical e-waste & plastic generated vs optimally recycled volume.</p>
+                        </div>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="mlForecastingChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card glass-panel span-full">
+                         <div class="card-header">
+                            <h3>Sustainability AI Integrity (Radar)</h3>
+                            <p class="card-desc">Model confidence across waste sorting, energy prediction, and social impact indicators.</p>
+                        </div>
+                        <div class="chart-container" style="height: 350px; display:flex; justify-content:center;">
+                            <canvas id="sustainabilityRadarChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card glass-panel span-full">
+                        <div class="card-header">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3>Social Inequality: Environmental Risk Exposure</h3>
+                                <div class="info-badge highlight">Predictive AI Model</div>
+                            </div>
+                            <p class="card-desc">Predicting the risk exposure of marginalized communities to industrial pollution.</p>
+                        </div>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="socialEquityBarChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- TAB 4: MAPS -->
+            <section id="tab-maps" class="tab-content">
+                <section class="map-wrapper mb-4">
+                    <div class="charts-wrapper">
+                        <div class="chart-card glass-panel">
+                            <div class="card-header">
+                                <h3>Global Deforestation & Emission Heatmap</h3>
+                                <p class="card-desc">Tracking critical sustainability zones worldwide.</p>
+                            </div>
+                            <div id="globalMapObj" style="height: 400px; width: 100%; border-radius: 8px;"></div>
+                        </div>
+                        <div class="chart-card glass-panel">
+                            <div class="card-header">
+                                <h3>Urban Clean Energy Micro-grids</h3>
+                                <p class="card-desc">Localized capacity tracking for emerging green infrastructures.</p>
+                            </div>
+                            <div id="localMapObj" style="height: 400px; width: 100%; border-radius: 8px;"></div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- TAB 5: RESOURCE OPTIMIZATION -->
+            <section id="tab-opt" class="tab-content">
+                <section class="charts-wrapper mb-4">
+                    <div class="chart-card glass-panel span-full">
+                        <div class="card-header">
+                            <h3>Actionable Optimization Targets</h3>
+                            <p class="card-desc">Data-driven resource reallocation targets based on ML pipeline analysis.</p>
+                        </div>
+                        <div class="optimization-grid mt-4">
+                            <!-- Goal 1 -->
+                            <div class="opt-goal glass-panel">
+                                <div class="opt-header">
+                                    <div class="opt-title"><i class="fas fa-droplet resource" style="color:var(--ocean-blue);"></i> Reduce Industrial Water Waste</div>
+                                    <div class="opt-status status-in-progress">In Progress</div>
+                                </div>
+                                <p class="opt-desc">Implement IoT flow regulators in chemical manufacturing sectors globally.</p>
+                                <div class="opt-progress-container mt-3">
+                                    <div class="opt-stats">
+                                        <span>Target: 15% Reduction</span>
+                                        <span>Current: 6.2%</span>
+                                    </div>
+                                    <div class="score-bar mt-1"><div class="score-fill" style="width: 41%; background-color: var(--ocean-blue);"></div></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Goal 2 -->
+                            <div class="opt-goal glass-panel">
+                                <div class="opt-header">
+                                    <div class="opt-title"><i class="fas fa-bolt energy" style="color:var(--neon-green);"></i> Shift to Urban Solar Micro-grids</div>
+                                    <div class="opt-status status-pending">Pending Approval</div>
+                                </div>
+                                <p class="opt-desc">Allocate grid load from fossil fuels to local solar coalitions during peak hours.</p>
+                                <div class="opt-progress-container mt-3">
+                                    <div class="opt-stats">
+                                        <span>Target: 500 MW Capacity</span>
+                                        <span>Current: 120 MW</span>
+                                    </div>
+                                    <div class="score-bar mt-1"><div class="score-fill" style="width: 24%; background-color: var(--neon-yellow);"></div></div>
+                                </div>
+                            </div>
+
+                            <!-- Goal 3 -->
+                            <div class="opt-goal glass-panel">
+                                <div class="opt-header">
+                                    <div class="opt-title"><i class="fas fa-users-rays equity" style="color:var(--danger-red);"></i> Subsidize Clean Energy Access</div>
+                                    <div class="opt-status status-critical">Action Required</div>
+                                </div>
+                                <p class="opt-desc">Address the high pollution exposure gap in Sub-Saharan Africa and S. Asia.</p>
+                                <div class="opt-progress-container mt-3">
+                                    <div class="opt-stats">
+                                        <span>Target: 50M Households</span>
+                                        <span>Current: 8M</span>
+                                    </div>
+                                    <div class="score-bar mt-1"><div class="score-fill" style="width: 16%; background-color: var(--danger-red);"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
